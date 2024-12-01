@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import { Toaster } from 'sonner';
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -14,8 +15,8 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "AI Translate",
-  description: "A modern AI-powered translation web application",
+  title: "AI 智能翻译",
+  description: "AI powered translation service",
 };
 
 export default function RootLayout({
@@ -29,6 +30,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {children}
+        <Toaster richColors position="top-right" />
       </body>
     </html>
   );

@@ -1,16 +1,49 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Copy, RotateCcw } from 'lucide-react';
+import { toast } from 'sonner';
 
 export default function TranslateForm() {
   const [sourceLang, setSourceLang] = useState('auto');
-  const [targetLang, setTargetLang] = useState('en');
+  const [targetLang, setTargetLang] = useState('zh');
   const [sourceText, setSourceText] = useState('');
   const [translation, setTranslation] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [height, setHeight] = useState('200px');
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const resultRef = useRef<HTMLDivElement>(null);
   const [progress, setProgress] = useState(0);
+
+  // 调整高度的函数
+  const adjustHeight = () => {
+    if (!textareaRef.current) return;
+    
+    // 重置高度以获取实际滚动高度
+    textareaRef.current.style.height = 'auto';
+    const scrollHeight = textareaRef.current.scrollHeight;
+    
+    // 计算新高度（在最小和最大高度之间）
+    const newHeight = Math.min(400, Math.max(200, scrollHeight));
+    const heightString = `${newHeight}px`;
+    
+    // 设置两个元素的高度
+    setHeight(heightString);
+    textareaRef.current.style.height = heightString;
+    if (resultRef.current) {
+      resultRef.current.style.height = heightString;
+    }
+  };
+
+  // 监听文本变化
+  useEffect(() => {
+    adjustHeight();
+  }, [sourceText]);
+
+  // 监听翻译结果变化
+  useEffect(() => {
+    adjustHeight();
+  }, [translation]);
 
   useEffect(() => {
     if (isLoading) {
@@ -34,9 +67,8 @@ export default function TranslateForm() {
 
   const handleTranslate = async () => {
     if (!sourceText.trim()) return;
-
+    
     setIsLoading(true);
-    setError(null);
     try {
       const response = await fetch('/api/translate', {
         method: 'POST',
@@ -50,16 +82,15 @@ export default function TranslateForm() {
         }),
       });
 
-      const data = await response.json();
-
       if (!response.ok) {
-        throw new Error(data.error || 'Translation failed');
+        throw new Error('Translation failed');
       }
 
+      const data = await response.json();
       setTranslation(data.translation);
     } catch (error) {
       console.error('Translation error:', error);
-      setError(error instanceof Error ? error.message : 'Translation failed');
+      toast.error('翻译失败，请稍后重试');
     } finally {
       setIsLoading(false);
     }
@@ -68,7 +99,7 @@ export default function TranslateForm() {
   const handleCopy = async (text: string) => {
     try {
       await navigator.clipboard.writeText(text);
-      // TODO: Add toast notification
+      toast.success('已复制到剪贴板');
     } catch (err) {
       console.error('Failed to copy text:', err);
     }
@@ -76,12 +107,6 @@ export default function TranslateForm() {
 
   return (
     <div className="w-full max-w-4xl mx-auto">
-      {error && (
-        <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-2xl text-red-600 text-sm">
-          {error}
-        </div>
-      )}
-
       <div className="bg-white/90 backdrop-blur-md rounded-2xl shadow-lg overflow-hidden border border-white/20">
         {/* Language Selection Bar */}
         <div className="flex items-center justify-between px-6 py-3 border-b bg-gradient-to-r from-indigo-50/50 via-purple-50/50 to-pink-50/50">
@@ -90,10 +115,25 @@ export default function TranslateForm() {
             onChange={(e) => setSourceLang(e.target.value)}
             className="bg-transparent text-sm font-medium focus:outline-none cursor-pointer hover:text-indigo-600 transition-colors"
           >
-            <option value="auto">Detect Language</option>
+            <option value="auto">自动检测</option>
+            <option value="zh">中文</option>
             <option value="en">English</option>
-            <option value="zh">Chinese</option>
-            <option value="es">Spanish</option>
+            <option value="hi">हिन्दी (Hindi)</option>
+            <option value="es">Español</option>
+            <option value="ar">العربية (Arabic)</option>
+            <option value="bn">বাংলা (Bengali)</option>
+            <option value="pt">Português</option>
+            <option value="ru">Русский</option>
+            <option value="ja">日本語</option>
+            <option value="fr">Français</option>
+            <option value="de">Deutsch</option>
+            <option value="ko">한국어</option>
+            <option value="tr">Türkçe</option>
+            <option value="vi">Tiếng Việt</option>
+            <option value="it">Italiano</option>
+            <option value="th">ไทย</option>
+            <option value="nl">Nederlands</option>
+            <option value="pl">Polski</option>
           </select>
 
           <select
@@ -101,9 +141,24 @@ export default function TranslateForm() {
             onChange={(e) => setTargetLang(e.target.value)}
             className="bg-transparent text-sm font-medium focus:outline-none cursor-pointer hover:text-indigo-600 transition-colors"
           >
+            <option value="zh">中文</option>
             <option value="en">English</option>
-            <option value="zh">Chinese</option>
-            <option value="es">Spanish</option>
+            <option value="hi">हिन्दी (Hindi)</option>
+            <option value="es">Español</option>
+            <option value="ar">العربية (Arabic)</option>
+            <option value="bn">বাংলা (Bengali)</option>
+            <option value="pt">Português</option>
+            <option value="ru">Русский</option>
+            <option value="ja">日本語</option>
+            <option value="fr">Français</option>
+            <option value="de">Deutsch</option>
+            <option value="ko">한국어</option>
+            <option value="tr">Türkçe</option>
+            <option value="vi">Tiếng Việt</option>
+            <option value="it">Italiano</option>
+            <option value="th">ไทย</option>
+            <option value="nl">Nederlands</option>
+            <option value="pl">Polski</option>
           </select>
         </div>
 
@@ -111,6 +166,7 @@ export default function TranslateForm() {
           {/* Source Text */}
           <div className="relative">
             <textarea
+              ref={textareaRef}
               value={sourceText}
               onChange={(e) => setSourceText(e.target.value)}
               onKeyDown={(e) => {
@@ -119,7 +175,12 @@ export default function TranslateForm() {
                 }
               }}
               placeholder="Enter text to translate..."
-              className="w-full h-48 p-4 resize-none focus:outline-none bg-transparent placeholder:text-gray-400"
+              className="w-full p-4 resize-none focus:outline-none focus:ring-1 focus:ring-indigo-200 transition-shadow bg-transparent placeholder:text-gray-400"
+              style={{
+                minHeight: '200px',
+                maxHeight: '400px',
+                height
+              }}
             />
             <div className="absolute bottom-2 right-2 flex gap-2">
               {sourceText && (
@@ -151,17 +212,27 @@ export default function TranslateForm() {
                 />
               </div>
             )}
-            <div className="w-full h-48 p-4 whitespace-pre-wrap">
+            <div 
+              ref={resultRef}
+              className="w-full whitespace-pre-wrap"
+              style={{
+                minHeight: '200px',
+                maxHeight: '400px',
+                height
+              }}
+            >
               {isLoading ? (
                 <div className="flex items-center justify-center h-full">
-                  <div className="animate-spin rounded-full h-6 w-6 border-2 border-indigo-600 border-t-transparent" />
+                  <div className="animate-spin rounded-full h-6 w-6 border-2 border-indigo-200 border-t-transparent" />
                 </div>
               ) : translation || (
-                <span className="text-gray-400">Translation will appear here...</span>
+                <div className="h-full p-4">
+                  <span className="text-gray-400">Translation will appear here...</span>
+                </div>
               )}
             </div>
             <div className="absolute bottom-2 right-2 flex gap-2">
-              {translation && (
+              {translation && !isLoading && (
                 <button
                   onClick={() => handleCopy(translation)}
                   className="p-2 rounded-full hover:bg-white/60 transition-all duration-200 hover:shadow-sm active:scale-95"
