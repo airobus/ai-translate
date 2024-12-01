@@ -1,4 +1,5 @@
 import Navigation from '@/components/Navigation';
+import { ArrowRight } from 'lucide-react';
 
 export default function AboutPage() {
   return (
@@ -9,79 +10,91 @@ export default function AboutPage() {
 
       <Navigation />
 
-      <main className="flex-1">
-        <div className="container mx-auto px-4 py-12">
-          <h1 className="text-3xl font-bold mb-8 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
-            About AI Translate
+      <main className="flex-1 flex justify-center">
+        <div className="max-w-2xl w-full px-4 py-8">
+          <h1 className="text-2xl font-bold mb-6 text-center bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+            探索更多 AI 工具
           </h1>
           
-          <div className="space-y-8">
+          <div className="space-y-6">
+            {/* AI 智能翻译 */}
             <section className="bg-white/90 backdrop-blur-md rounded-2xl p-6 shadow-lg">
-              <h2 className="text-xl font-semibold mb-4 text-indigo-600">Core Features</h2>
-              <ul className="space-y-4">
-                <li className="flex items-start">
-                  <div className="flex-shrink-0 w-6 h-6 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 flex items-center justify-center text-white text-sm mr-3 mt-0.5">1</div>
-                  <div>
-                    <h3 className="font-medium">AI-Powered Translation</h3>
-                    <p className="text-gray-600 mt-1">Utilizing Cloudflare's advanced AI model for accurate and natural-sounding translations across multiple languages.</p>
-                  </div>
-                </li>
-                <li className="flex items-start">
-                  <div className="flex-shrink-0 w-6 h-6 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 flex items-center justify-center text-white text-sm mr-3 mt-0.5">2</div>
-                  <div>
-                    <h3 className="font-medium">Language Support</h3>
-                    <p className="text-gray-600 mt-1">Support for multiple languages including English, Chinese, and Spanish, with automatic language detection.</p>
-                  </div>
-                </li>
-                <li className="flex items-start">
-                  <div className="flex-shrink-0 w-6 h-6 rounded-full bg-gradient-to-r from-pink-600 to-indigo-600 flex items-center justify-center text-white text-sm mr-3 mt-0.5">3</div>
-                  <div>
-                    <h3 className="font-medium">Modern User Interface</h3>
-                    <p className="text-gray-600 mt-1">Clean and intuitive design with real-time translation, language swap functionality, and clipboard integration.</p>
-                  </div>
-                </li>
-              </ul>
-            </section>
-
-            <section className="bg-white/90 backdrop-blur-md rounded-2xl p-6 shadow-lg">
-              <h2 className="text-xl font-semibold mb-4 text-indigo-600">Technical Stack</h2>
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <h3 className="font-medium mb-2">Frontend</h3>
-                  <ul className="space-y-2 text-gray-600">
-                    <li>• Next.js 15</li>
-                    <li>• React 19 (RC)</li>
-                    <li>• Tailwind CSS</li>
-                    <li>• TypeScript</li>
-                  </ul>
-                </div>
-                <div>
-                  <h3 className="font-medium mb-2">Backend</h3>
-                  <ul className="space-y-2 text-gray-600">
-                    <li>• Cloudflare AI API</li>
-                    <li>• Next.js API Routes</li>
-                    <li>• Server-side Translation</li>
-                  </ul>
-                </div>
+              <h2 className="text-xl font-semibold mb-3 text-indigo-600">AI 智能翻译</h2>
+              <p className="text-gray-600 mb-4 text-sm leading-relaxed">
+                AI 智能翻译是由 airobus 推出的一款免费在线翻译工具。我们运用先进的 AI 技术，
+                为您提供准确、流畅的多语言翻译服务。无论是日常交流还是专业文档，都能轻松应对。
+              </p>
+              <div className="bg-gradient-to-r from-indigo-50 to-purple-50 rounded-xl p-4">
+                <h3 className="font-medium text-indigo-600 mb-2 text-sm">特色功能</h3>
+                <ul className="space-y-2 text-sm text-gray-600 mb-4">
+                  <li className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-indigo-600"></span>
+                    <span>基于 AI 的智能翻译引擎，支持多种语言互译，翻译更准确自然</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-indigo-600"></span>
+                    <span>自动识别源语言，一键复制结果，操作简单快捷，提升翻译效率</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-indigo-600"></span>
+                    <span>完全免费且无需注册，每天不限次数使用，满足您的翻译需求</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-indigo-600"></span>
+                    <span>简洁优雅的界面设计，支持移动端访问，随时随地轻松翻译</span>
+                  </li>
+                </ul>
+                <a
+                  href="https://www.923828.xyz/projects"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-5 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg hover:shadow-lg transition-all duration-200 text-sm font-medium"
+                >
+                  更多工具
+                  <ArrowRight className="w-4 h-4" />
+                </a>
               </div>
             </section>
 
+            {/* 更多 AI 工具 */}
             <section className="bg-white/90 backdrop-blur-md rounded-2xl p-6 shadow-lg">
-              <h2 className="text-xl font-semibold mb-4 text-indigo-600">Coming Soon</h2>
-              <ul className="space-y-2 text-gray-600">
-                <li>• Text-to-speech functionality</li>
-                <li>• Additional language support</li>
-                <li>• Translation history</li>
-                <li>• Offline translation capabilities</li>
+              <h2 className="text-lg font-semibold mb-3 text-indigo-600">更多 AI 工具</h2>
+              <p className="text-sm text-gray-600 mb-3">
+                除了翻译工具，我们还提供其他实用的 AI 工具，欢迎体验：
+              </p>
+              <ul className="space-y-2 text-sm text-gray-600">
+                <li className="flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-indigo-600"></span>
+                  <span>AI 穿搭点评 - 智能时尚顾问，为您的穿搭提供专业建议</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-indigo-600"></span>
+                  <span>AI 妆容助手 - 个性化妆容方案，提升个人形象</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-indigo-600"></span>
+                  <span>AI 形象设计 - 一站式个人形象提升解决方案</span>
+                </li>
               </ul>
             </section>
           </div>
         </div>
       </main>
 
-      <footer className="border-t bg-white/50 backdrop-blur-sm py-8 relative">
-        <div className="container mx-auto px-4 text-center text-sm text-gray-600">
-          <p>Powered by Next.js and Cloudflare AI</p>
+      <footer className="border-t bg-white/50 backdrop-blur-sm py-6 relative">
+        <div className="container mx-auto px-4 text-center space-y-2">
+          <p className="text-xs text-gray-600">
+            Copyright {new Date().getFullYear()} airobus
+          </p>
+          <a
+            href="https://923828.xyz"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-xs text-indigo-600 hover:text-indigo-700 transition-colors inline-flex items-center gap-1"
+          >
+            访问更多工具
+            <ArrowRight className="w-3 h-3" />
+          </a>
         </div>
       </footer>
     </div>

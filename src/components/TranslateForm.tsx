@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { ArrowLeftRight, Volume2, Copy, RotateCcw } from 'lucide-react';
+import { Copy, RotateCcw } from 'lucide-react';
 
 export default function TranslateForm() {
   const [sourceLang, setSourceLang] = useState('auto');
@@ -31,14 +31,6 @@ export default function TranslateForm() {
       };
     }
   }, [isLoading]);
-
-  const handleSwapLanguages = () => {
-    if (sourceLang === 'auto') return;
-    setSourceLang(targetLang);
-    setTargetLang(sourceLang);
-    setSourceText(translation);
-    setTranslation(sourceText);
-  };
 
   const handleTranslate = async () => {
     if (!sourceText.trim()) return;
@@ -103,14 +95,6 @@ export default function TranslateForm() {
             <option value="zh">Chinese</option>
             <option value="es">Spanish</option>
           </select>
-
-          <button
-            onClick={handleSwapLanguages}
-            disabled={sourceLang === 'auto'}
-            className="p-2 rounded-full hover:bg-white/80 hover:shadow-sm transition-all duration-200 disabled:opacity-50 active:scale-95"
-          >
-            <ArrowLeftRight className="w-4 h-4" />
-          </button>
 
           <select
             value={targetLang}
@@ -178,19 +162,12 @@ export default function TranslateForm() {
             </div>
             <div className="absolute bottom-2 right-2 flex gap-2">
               {translation && (
-                <>
-                  <button
-                    onClick={() => handleCopy(translation)}
-                    className="p-2 rounded-full hover:bg-white/60 transition-all duration-200 hover:shadow-sm active:scale-95"
-                  >
-                    <Copy className="w-4 h-4" />
-                  </button>
-                  <button 
-                    className="p-2 rounded-full hover:bg-white/60 transition-all duration-200 hover:shadow-sm active:scale-95"
-                  >
-                    <Volume2 className="w-4 h-4" />
-                  </button>
-                </>
+                <button
+                  onClick={() => handleCopy(translation)}
+                  className="p-2 rounded-full hover:bg-white/60 transition-all duration-200 hover:shadow-sm active:scale-95"
+                >
+                  <Copy className="w-4 h-4" />
+                </button>
               )}
             </div>
           </div>
