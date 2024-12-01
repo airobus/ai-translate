@@ -6,7 +6,7 @@ import { toast } from 'sonner';
 
 export default function TranslateForm() {
   const [sourceLang, setSourceLang] = useState('auto');
-  const [targetLang, setTargetLang] = useState('zh');
+  const [targetLang, setTargetLang] = useState('en');
   const [sourceText, setSourceText] = useState('');
   const [translation, setTranslation] = useState('');
   const [isLoading, setIsLoading] = useState(false);
