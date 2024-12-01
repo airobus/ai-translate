@@ -214,7 +214,7 @@ export default function TranslateForm() {
             )}
             <div 
               ref={resultRef}
-              className="w-full whitespace-pre-wrap"
+              className="w-full h-full overflow-y-auto"
               style={{
                 minHeight: '200px',
                 maxHeight: '400px',
@@ -225,8 +225,12 @@ export default function TranslateForm() {
                 <div className="flex items-center justify-center h-full">
                   <div className="animate-spin rounded-full h-6 w-6 border-2 border-indigo-200 border-t-transparent" />
                 </div>
-              ) : translation || (
-                <div className="h-full p-4">
+              ) : translation ? (
+                <div className="p-4 whitespace-pre-wrap break-words">
+                  {translation}
+                </div>
+              ) : (
+                <div className="h-full p-4 flex items-center justify-center">
                   <span className="text-gray-400">Translation will appear here...</span>
                 </div>
               )}
