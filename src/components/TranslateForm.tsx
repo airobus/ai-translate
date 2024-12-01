@@ -141,8 +141,8 @@ export default function TranslateForm() {
             onChange={(e) => setTargetLang(e.target.value)}
             className="bg-transparent text-sm font-medium focus:outline-none cursor-pointer hover:text-indigo-600 transition-colors"
           >
-            <option value="zh">中文</option>
             <option value="en">English</option>
+            <option value="zh">中文</option>
             <option value="hi">हिन्दी (Hindi)</option>
             <option value="es">Español</option>
             <option value="ar">العربية (Arabic)</option>
